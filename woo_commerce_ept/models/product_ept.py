@@ -335,7 +335,7 @@ class WooProductTemplateEpt(models.Model):
             return log_line
         try:
             data = response.json()
-            print("*******************",data)
+            _logger.info("**************%s*****",data)
         except Exception as error:
             message = "Json Error : While" + process + "\n%s" % error
             log_line = common_log_line_obj.woo_product_export_log_line(message, model_id, common_log_book,
@@ -695,7 +695,7 @@ class WooProductTemplateEpt(models.Model):
         common_log_line_obj = self.env["common.log.lines.ept"]
         model_id = common_log_line_obj.get_model_id('woo.product.template.ept')
         wc_api = instance.woo_connect()
-        print("*************wc_api**********",wc_api)
+        _logger.info("*********%s****wc_api**********",wc_api)
         try:
             res = wc_api.get('products', params={'per_page': 100, 'page': page})
         except Exception as error:
@@ -703,7 +703,7 @@ class WooProductTemplateEpt(models.Model):
                               "Instance Configuration.\n\n" + str(error)))
 
         response = self.check_woocommerce_response(res, "Import Product", model_id, common_log_id)
-        print("*********response****wc_api**********",response)
+        print("*********response****wc_api**********")
 
         if not isinstance(response, list):
             return []
