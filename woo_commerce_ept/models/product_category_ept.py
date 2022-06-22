@@ -173,9 +173,10 @@ class WooProductCategoryEpt(models.Model):
                 'description': category.get('description', '')}
         if sync_images_with_product:
             res_image = category.get('image') and category.get('image', {}).get('src', "")
+            print("++++++++++++++++")
             if res_image:
                 try:
-                    res_img = requests.get(res_image, stream=True, verify=True, timeout=10)
+                    res_img = requests.get(res_image, stream=True, verify=True, timeout=100)
                     if res_img.status_code == 200:
                         binary_img_data = base64.b64encode(res_img.content)
                 except Exception as error:
